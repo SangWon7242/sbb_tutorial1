@@ -4,8 +4,10 @@ import com.sbs.tutorial1.base.rq.Rq;
 import com.sbs.tutorial1.base.rsData.RsData;
 import com.sbs.tutorial1.boundedContext.member.dto.Member;
 import com.sbs.tutorial1.boundedContext.member.service.MemberService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -55,19 +57,14 @@ public class MemberController {
   }
 
   @GetMapping("/member/me")
-  @ResponseBody
-  public RsData showMe() {
-    long loginedMemberId = rq.getSessionAsLong("loginedMemberId", 0);
-
-    boolean isLogined = loginedMemberId > 0;
-
-    if (!isLogined) {
-      return RsData.of("F-1", "로그인 후 이용해주세요.");
-    }
+  public String showMe(Model model) {
+    long loginedMemberId = rq.getLoginedMember();
 
     Member member = memberService.findById(loginedMemberId);
 
-    return RsData.of("S-1", "당신의 username(은)는 %s 입니다.".formatted(member.getUsername()));
+    model.addAttribute("member", member);
+
+    return "usr/member/me";
   }
 
   @GetMapping("/member/session")
