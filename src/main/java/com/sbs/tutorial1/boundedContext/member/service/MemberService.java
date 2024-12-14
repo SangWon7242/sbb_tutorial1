@@ -33,6 +33,6 @@ public class MemberService {
   }
 
   public Member findById(long id) {
-    return memberRepository.findById(id);
+    return memberRepository.findById(id); // SELECT * `member` WHERE id = ?
   }
 }
