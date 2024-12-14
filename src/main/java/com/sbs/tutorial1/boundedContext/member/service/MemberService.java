@@ -33,4 +33,15 @@ public class MemberService {
   public Member findById(long id) {
     return memberRepository.findById(id).orElse(null);
   }
+
+  public RsData join(String username, String password) {
+    Member member = Member.builder()
+        .username(username)
+        .password(password)
+        .build();
+
+    memberRepository.save(member);
+
+    return RsData.of("S-1", "회원 가입되었습니다.", member);
+  }
 }

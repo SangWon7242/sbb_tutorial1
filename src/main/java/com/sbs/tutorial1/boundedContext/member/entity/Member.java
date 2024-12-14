@@ -2,6 +2,7 @@ package com.sbs.tutorial1.boundedContext.member.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -14,6 +15,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Data
 @Entity
 @EntityListeners(AuditingEntityListener.class) // 엔티티 변경 사항을 감지하는 리스너
