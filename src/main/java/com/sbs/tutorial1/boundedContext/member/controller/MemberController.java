@@ -17,6 +17,33 @@ public class MemberController {
   private final MemberService memberService;
   private final Rq rq;
 
+  @GetMapping("/member/join")
+  public String showJoin() {
+    return "usr/member/join";
+  }
+
+  @PostMapping("/member/doJoin")
+  @ResponseBody
+  public RsData join(String username, String password) {
+    if (username == null || username.trim().isEmpty()) {
+      return RsData.of("F-3", "username(을)를 입력해주세요.");
+    }
+
+    Member member = memberService.findByUsername(username);
+
+    if(member != null) {
+      return RsData.of("F-5", "%s(은)는 이미 존재하는 회원입니다.".formatted(username));
+    }
+
+    if (password == null || password.trim().isEmpty()) {
+      return RsData.of("F-4", "비밀번호를 입력해주세요.");
+    }
+
+    RsData rsData = memberService.join(username, password);
+
+    return rsData;
+  }
+
   @GetMapping("/member/login")
   public String showLogin() {
     return "usr/member/login";

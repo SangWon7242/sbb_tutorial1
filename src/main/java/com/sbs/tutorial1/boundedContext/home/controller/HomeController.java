@@ -42,7 +42,7 @@ public class HomeController {
   @GetMapping("/home/user1")
   @ResponseBody
   public Member showUser1() {
-    return memberService.findByUserName("user1");
+    return memberService.findByUsername("user1");
   }
 
   @GetMapping("/home/main")

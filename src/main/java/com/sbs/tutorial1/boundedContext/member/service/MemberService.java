@@ -26,7 +26,7 @@ public class MemberService {
     return RsData.of("S-1", "%s님 환영합니다.".formatted(username), member);
   }
 
-  public Member findByUserName(String username) {
+  public Member findByUsername(String username) {
     return memberRepository.findByUsername(username).orElse(null);
   }
 
